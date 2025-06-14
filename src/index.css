@@ -1,0 +1,108 @@
+/* index.css */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0a6b0a;
+  color: white;
+  font-family: sans-serif;
+}
+
+.container {
+  padding: 2rem;
+  text-align: center;
+}
+
+textarea {
+  width: 90%;
+  max-width: 500px;
+  margin: 1rem auto;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #2ecc40;
+  background-color: #144d14;
+  color: white;
+  font-size: 1rem;
+}
+
+.team-inputs input {
+  padding: 8px;
+  margin: 0.5rem;
+  border-radius: 8px;
+  border: 2px solid #2ecc40;
+  background-color: #144d14;
+  color: white;
+  font-weight: bold;
+}
+
+.buttons {
+  margin: 1rem 0;
+}
+
+button {
+  margin: 0.5rem;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.generate {
+  background-color: #2ecc40;
+  color: #003300;
+}
+
+.simulate {
+  background-color: #f1c40f;
+  color: #663c00;
+}
+
+.reset {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.field-layout {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.team-side {
+  background-color: #144d14;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 0 8px #2ecc40;
+  text-align: left;
+}
+
+.team-side ul {
+  list-style: none;
+  padding-left: 0.5rem;
+}
+
+.match-center {
+  background-color: #1a1a1a;
+  padding: 1rem;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 0 12px #f1c40f;
+}
+
+.goals-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.goals-info div {
+  text-align: left;
+  width: 48%;
+}
+
+.goals-info ul {
+  padding-left: 1rem;
+}
