@@ -46,7 +46,7 @@ function App() {
           href="https://twitter.com/EmirhanBaymaz" 
           target="_blank" 
           rel="noopener noreferrer"
-          style={{ color: "#1DA1F2", textDecoration: "none" , fontWeight: 'bold'}}
+          style={{ color: "#00cc66", textDecoration: "none" , fontWeight: 'bold'}}
         >
           Twitter
         </a>
