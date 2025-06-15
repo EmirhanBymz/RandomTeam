@@ -1,4 +1,3 @@
-// App.js veya RandomTeamMaker.js
 import React, { useState } from "react";
 import "./index.css";
 
@@ -23,53 +22,70 @@ function App() {
       })
       .filter((p) => p.name !== "");
   };
-  
-const handleGenerate = () => {
-  const allPlayers = parsePlayers();
 
-  if (allPlayers.length < 2) {
-    alert("En az 2 oyuncu gereklidir.");
-    return;
-  }
+  const handleGenerate = () => {
+    const allPlayers = parsePlayers();
 
-  // Oyuncuları pozisyonlara göre grupla
-  const grouped = {
-    Kaleci: [],
-    Defans: [],
-    "Orta Saha": [],
-    Forvet: [],
-  };
-
-  allPlayers.forEach((p) => {
-    if (grouped[p.position]) {
-      grouped[p.position].push(p);
+    if (allPlayers.length < 14) {
+      alert("İki takım için en az 7'şer oyuncu olmak üzere toplam en az 14 oyuncu girmelisiniz.");
+      return;
     }
-  });
 
-  // Her pozisyondan sırayla iki takıma eşit dağıt
-  const team1 = [];
-  const team2 = [];
+    // Pozisyonlara göre ayır
+    const grouped = {
+      Kaleci: [],
+      Defans: [],
+      "Orta Saha": [],
+      Forvet: [],
+    };
 
-  for (const pos of positions) {
-    const players = grouped[pos].sort(() => Math.random() - 0.5); // karıştır
-    players.forEach((player, idx) => {
-      if (idx % 2 === 0) {
-        team1.push(player);
-      } else {
-        team2.push(player);
+    allPlayers.forEach((p) => {
+      if (grouped[p.position]) {
+        grouped[p.position].push(p);
       }
     });
-  }
 
-  // Takım sayısı eşit değilse dengele
-  while (Math.abs(team1.length - team2.length) > 1) {
-    const [larger, smaller] = team1.length > team2.length ? [team1, team2] : [team2, team1];
-    smaller.push(larger.pop());
-  }
+    if (grouped["Kaleci"].length < 2) {
+      alert("Her takımda 1 kaleci olması için en az 2 kaleci girmelisiniz.");
+      return;
+    }
 
-  setTeams([team1, team2]);
-  setMatchResult(null);
-};
+    // Takımlar
+    const team1 = [];
+    const team2 = [];
+
+    // Öncelikle kalecileri kesin olarak dağıt
+    team1.push(grouped["Kaleci"][0]);
+    team2.push(grouped["Kaleci"][1]);
+
+    // Kalan kaleciler varsa onları da sırayla dağıt
+    for (let i = 2; i < grouped["Kaleci"].length; i++) {
+      if (team1.length < team2.length) team1.push(grouped["Kaleci"][i]);
+      else team2.push(grouped["Kaleci"][i]);
+    }
+
+    // Diğer pozisyon oyuncularını rastgele karıştır ve sırayla takımlara dağıt
+    ["Defans", "Orta Saha", "Forvet"].forEach((pos) => {
+      const players = grouped[pos].sort(() => Math.random() - 0.5);
+      players.forEach((p) => {
+        if (team1.length < team2.length) team1.push(p);
+        else team2.push(p);
+      });
+    });
+
+    // Eğer takımlardan biri 7 oyuncudan azsa, eksikliği tamamlamak için diğer pozisyonlardaki oyuncuları tekrar kontrol et
+    const minSize = 7;
+    const allPlayersCopy = [...allPlayers];
+
+    // Burada zaten tüm oyuncular dağıtıldı ama yine de kontrol etmek için şöyle yapabiliriz:
+    if (team1.length < minSize || team2.length < minSize) {
+      alert("Oyuncu dağıtımında hata oluştu: Her takımda en az 7 oyuncu olmalı.");
+      return;
+    }
+
+    setTeams([team1, team2]);
+    setMatchResult(null);
+  };
 
   const simulateMatch = () => {
     if (teams.length !== 2) return;
@@ -200,4 +216,5 @@ const handleGenerate = () => {
     </div>
   );
 }
+
 export default App;
